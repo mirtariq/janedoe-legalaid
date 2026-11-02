@@ -1,0 +1,886 @@
+/*
+Theme Name: LegalAtoms Legal Aid
+Theme URI: https://legalatoms.com/
+Author: LegalAtoms
+Author URI: https://legalatoms.com/
+Description: A free, accessible block theme for legal aid organizations, community nonprofits, and access-to-justice programs. Includes ready-made page layouts for a home page, services and "get help" pages, about and team pages, donation and volunteer calls to action, and FAQs. Comes with a warm cream-and-peach palette, three alternate style variations including a high-contrast option, and the bundled Figtree typeface. Built for the Site Editor with no plugins required.
+Requires at least: 6.7
+Tested up to: 7.1
+Requires PHP: 7.4
+Version: 1.10.1
+License: GNU General Public License v2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: legalatoms-legal-aid
+Tags: one-column, wide-blocks, block-patterns, block-styles, full-site-editing, style-variations, editor-style, custom-colors, custom-menu, featured-images, threaded-comments, translation-ready, blog
+*/
+
+/* Visible focus indicator for keyboard users */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+.wp-element-button:focus-visible {
+	outline: 3px solid var(--wp--preset--color--contrast);
+	outline-offset: 2px;
+}
+
+.skip-link.screen-reader-text:focus {
+	background: var(--wp--preset--color--base);
+	color: var(--wp--preset--color--contrast);
+}
+
+/* Keep links distinguishable without relying on color alone */
+.entry-content a:where(:not(.wp-element-button)),
+.wp-block-post-content a:where(:not(.wp-element-button)) {
+	text-decoration: underline;
+	text-underline-offset: 0.15em;
+}
+
+.wp-block-details summary {
+	cursor: pointer;
+	font-weight: 600;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	* {
+		scroll-behavior: auto !important;
+		transition: none !important;
+		animation: none !important;
+	}
+}
+
+/* Keep menu labels on one line */
+.wp-block-navigation .wp-block-navigation-item__content {
+	white-space: nowrap;
+}
+
+/* Single sticky header ribbon */
+header.wp-block-template-part {
+	position: sticky;
+	top: var(--wp-admin--admin-bar--height, 0px);
+	z-index: 50;
+}
+
+@media (max-width: 600px) {
+	header.wp-block-template-part {
+		top: 0;
+	}
+}
+
+/* Bullet dot before a statement */
+.has-dot {
+	position: relative;
+	padding-left: 1.4em;
+}
+
+.has-dot::before {
+	content: "";
+	position: absolute;
+	left: 0;
+	top: 0.32em;
+	width: 0.8em;
+	height: 0.8em;
+	border-radius: 50%;
+	background: currentColor;
+}
+
+/* Large statistics */
+.is-stat {
+	font-family: var(--wp--preset--font-family--heading);
+	font-weight: 600;
+	line-height: 0.95;
+	letter-spacing: -0.02em;
+}
+
+/* Large statement paragraphs */
+p.has-x-large-font-size {
+	line-height: 1.15;
+	letter-spacing: -0.02em;
+}
+
+/* Outline buttons */
+.wp-block-button.is-style-outline > .wp-block-button__link {
+	background: transparent;
+	color: currentColor;
+	border: 1px solid currentColor;
+}
+
+.wp-block-button.is-style-outline > .wp-block-button__link:hover {
+	background: var(--wp--preset--color--contrast);
+	color: var(--wp--preset--color--base);
+}
+
+/* No gap between header, content, and footer */
+.wp-site-blocks > * {
+	margin-block-start: 0;
+}
+
+.site-header .wp-block-site-title,
+.site-header .quick-exit .wp-block-button__link {
+	white-space: nowrap;
+}
+
+/* Use the menu button below desktop widths, like the mobile menu */
+@media (max-width: 1100px) {
+	.site-header .wp-block-navigation__responsive-container-open:not(.always-shown) {
+		display: flex;
+	}
+
+	.site-header .wp-block-navigation__responsive-container:not(.hidden-by-default):not(.is-menu-open) {
+		display: none;
+	}
+}
+
+/* ---------------------------------------------------------------------
+ * Section rhythm: more air between a section heading and what follows
+ * ------------------------------------------------------------------- */
+.wp-block-group.alignfull > h1.wp-block-heading,
+.wp-block-group.alignfull > h2.wp-block-heading {
+	margin-bottom: var(--wp--preset--spacing--60);
+}
+
+.wp-block-group.alignfull > h2.wp-block-heading + p {
+	margin-top: calc(-1 * var(--wp--preset--spacing--50));
+	margin-bottom: var(--wp--preset--spacing--60);
+}
+
+/* ---------------------------------------------------------------------
+ * Word-by-word reveal (added by theme.js; needs no JS to read)
+ * ------------------------------------------------------------------- */
+.has-js:not(.no-reveal) .reveal-words .reveal-word {
+	display: inline-block;
+	opacity: 0.18;
+	transform: translateY(0.15em);
+	transition: opacity 0.5s ease, transform 0.5s ease;
+	transition-delay: calc(var(--i, 0) * 45ms);
+}
+
+.has-js:not(.no-reveal) .reveal-words.is-revealed .reveal-word {
+	opacity: 1;
+	transform: none;
+}
+
+/* ---------------------------------------------------------------------
+ * Values: sticky stacking cards with a morphing shape
+ * ------------------------------------------------------------------- */
+.values-stack {
+	--card-top: var(--site-header-h, 72px);
+}
+
+.value-card {
+	position: sticky;
+	top: var(--card-top);
+	min-height: calc(100vh - var(--card-top));
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+}
+
+.value-card__count {
+	position: absolute;
+	top: var(--wp--preset--spacing--40);
+	right: var(--wp--preset--spacing--40);
+	margin: 0;
+}
+
+.value-shape {
+	width: 4.5rem;
+	height: 4.5rem;
+	background: var(--wp--preset--color--base);
+	border-radius: 42% 58% 55% 45% / 50% 40% 60% 50%;
+	margin-bottom: var(--wp--preset--spacing--50);
+	animation: legalatoms-morph 7s ease-in-out infinite;
+}
+
+.value-card:nth-child(2n) .value-shape {
+	animation-duration: 9s;
+	animation-direction: reverse;
+}
+
+@keyframes legalatoms-morph {
+	0%   { border-radius: 42% 58% 55% 45% / 50% 40% 60% 50%; transform: rotate(0deg); }
+	33%  { border-radius: 60% 40% 35% 65% / 55% 60% 40% 45%; transform: rotate(20deg); }
+	66%  { border-radius: 35% 65% 60% 40% / 40% 35% 65% 60%; transform: rotate(-15deg); }
+	100% { border-radius: 42% 58% 55% 45% / 50% 40% 60% 50%; transform: rotate(0deg); }
+}
+
+/* ---------------------------------------------------------------------
+ * Team spotlight: sticky picture, scrolling list of names
+ * ------------------------------------------------------------------- */
+.team-spotlight__frame {
+	position: sticky;
+	top: calc(var(--site-header-h, 72px) + var(--wp--preset--spacing--50));
+	margin: 0;
+}
+
+.team-spotlight__frame img {
+	width: 100%;
+	max-width: 420px;
+	margin-left: auto;
+	aspect-ratio: 1;
+	object-fit: cover;
+	border-radius: 5px;
+	display: block;
+}
+
+.team-spotlight__role {
+	display: inline-block;
+	background: var(--wp--preset--color--base-2);
+	color: var(--wp--preset--color--contrast);
+	border-radius: 999px;
+	padding: 0.2em 0.9em;
+	margin-top: 0.75rem;
+}
+
+.team-member {
+	margin: 0;
+	padding: 0.15em 0;
+	transition: opacity 0.3s ease;
+}
+
+.team-member__role {
+	display: none;
+}
+
+.team-member img {
+	display: none;
+}
+
+.has-js .team-spotlight .team-member {
+	opacity: 0.45;
+}
+
+.has-js .team-spotlight .team-member.is-active {
+	opacity: 1;
+}
+
+.no-reveal .team-spotlight .team-member,
+.no-reveal .team-spotlight .team-member.is-active {
+	opacity: 1;
+}
+
+@media (max-width: 781px) {
+	.team-spotlight__frame {
+		position: static;
+	}
+
+	.value-card {
+		position: relative;
+		min-height: 0;
+		padding-top: var(--wp--preset--spacing--70) !important;
+	}
+}
+
+/* ---------------------------------------------------------------------
+ * Team spotlight: white-dot halftone rendering of the active portrait
+ * ------------------------------------------------------------------- */
+.team-spotlight {
+	position: relative;
+	overflow: hidden;
+}
+
+.team-spotlight__halftone {
+	position: sticky !important;
+	top: calc(var(--site-header-h, 72px) + var(--wp--preset--spacing--50));
+	height: 0;
+	margin: 0 !important;
+	overflow: visible;
+	pointer-events: none;
+	filter: contrast(40);
+	mix-blend-mode: screen;
+}
+
+.team-spotlight__halftone > figure {
+	position: absolute;
+	top: -3rem;
+	left: -55%;
+	width: 135%;
+	height: auto;
+	aspect-ratio: 1;
+	margin: 0;
+}
+
+.team-spotlight__halftone img {
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+
+.team-spotlight__halftone img {
+	object-fit: cover;
+	filter: grayscale(1) blur(0.6px) brightness(1.05);
+}
+
+.team-spotlight__halftone > figure::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background-image: radial-gradient(circle at center, #fff 0%, #000 72%);
+	background-size: 8px 8px;
+	mix-blend-mode: multiply;
+}
+
+@media (max-width: 781px) {
+	.team-spotlight__halftone {
+		display: none;
+	}
+}
+
+/* ---------------------------------------------------------------------
+ * Transparent header that turns peach once the page is scrolled
+ * ------------------------------------------------------------------- */
+.site-header {
+	background: transparent;
+	transition: background-color 0.25s ease;
+}
+
+html:not(.has-js) .site-header {
+	background-color: var(--wp--preset--color--accent);
+}
+
+.site-header.is-on-dark,
+.site-header.is-on-dark .wp-block-site-title a,
+.site-header.is-on-dark .wp-block-navigation a,
+.site-header.is-on-dark .wp-block-navigation__responsive-container-open {
+	color: var(--wp--preset--color--base);
+}
+
+.site-header.is-on-dark .quick-exit .wp-block-button__link {
+	background-color: var(--wp--preset--color--accent) !important;
+	color: var(--wp--preset--color--contrast) !important;
+}
+
+/* ---------------------------------------------------------------------
+ * Footer
+ * ------------------------------------------------------------------- */
+.site-footer {
+	color: #d9d9d9;
+	font-weight: 300;
+}
+
+.site-footer a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.site-footer a:hover {
+	color: var(--wp--preset--color--base);
+}
+
+.site-footer__mark {
+	margin: 0;
+}
+
+.site-footer__mark img {
+	display: block;
+	max-width: 100%;
+	height: auto;
+}
+
+.site-footer__info p {
+	margin: 0 0 1rem;
+}
+
+.site-footer__line {
+	gap: 0.6rem;
+	align-items: center;
+	margin-bottom: 0.25rem;
+}
+
+.site-footer__line figure,
+.site-footer__line p {
+	margin: 0;
+}
+
+.site-footer__social {
+	margin: 0.5rem 0 1.5rem;
+}
+
+.site-footer__social .wp-social-link a {
+	gap: 0.6rem;
+	padding: 0;
+	color: #d9d9d9;
+}
+
+.site-footer .site-footer__social.wp-block-social-links .wp-block-social-link-label {
+	font-weight: 300;
+	font-size: var(--wp--preset--font-size--medium) !important;
+	line-height: 1.5;
+}
+
+.site-footer .site-footer__social.wp-block-social-links .wp-social-link svg {
+	width: 22px;
+	height: 22px;
+}
+
+.site-footer__brand {
+	margin-top: clamp(4rem, 14vh, 10rem);
+	align-items: flex-end;
+}
+
+.site-footer .footer-site-name {
+	color: var(--wp--preset--color--base);
+	font-weight: 600;
+	max-width: 9ch;
+	margin: 0;
+}
+
+.site-footer .footer-site-name a {
+	color: var(--wp--preset--color--base);
+}
+
+.site-footer__links {
+	margin: 0 0 0 auto;
+	display: flex;
+	gap: 1rem;
+	opacity: 0.6;
+}
+
+.funders {
+	row-gap: 1.5rem;
+}
+
+.funders .funder {
+	margin: 0;
+}
+
+.funders .funder img {
+	display: block;
+	height: 56px;
+	width: auto;
+}
+
+.funders__link {
+	margin: 0;
+	font-weight: 600;
+	color: var(--wp--preset--color--base);
+}
+
+.funders__link a {
+	color: var(--wp--preset--color--base);
+}
+
+.site-footer__disclaimer {
+	opacity: 0.6;
+	margin-top: var(--wp--preset--spacing--50);
+}
+
+@media (max-width: 781px) {
+	.site-footer__main {
+		min-height: 0 !important;
+	}
+
+	.site-footer__mark img {
+		width: 200px !important;
+	}
+}
+
+/* ---------------------------------------------------------------------
+ * Quick actions: dropdown + Go
+ * ------------------------------------------------------------------- */
+.jump-menu select {
+	flex: 1;
+	min-width: 0;
+	font: inherit;
+	font-size: var(--wp--preset--font-size--medium);
+	color: var(--wp--preset--color--contrast);
+	background: var(--wp--preset--color--base);
+	border: 1px solid var(--wp--preset--color--contrast);
+	border-radius: 5px;
+	padding: 0.65rem 0.9rem;
+}
+
+.jump-menu__go {
+	border: 0;
+	cursor: pointer;
+	font: inherit;
+	font-weight: 600;
+	font-size: var(--wp--preset--font-size--medium);
+	background: var(--wp--preset--color--accent);
+	color: var(--wp--preset--color--contrast);
+	border-radius: 5px;
+	padding: 0.65rem 1.1rem;
+}
+
+.jump-menu__go:hover,
+.jump-menu__go:focus-visible {
+	background: var(--wp--preset--color--contrast);
+	color: var(--wp--preset--color--base);
+}
+
+/* The first section slides under the transparent header */
+.has-js header.wp-block-template-part {
+	margin-bottom: calc(-1 * var(--site-header-h, 72px));
+}
+
+.has-js main > .wp-block-group.alignfull:first-child,
+.has-js main > .wp-block-post-content > .wp-block-group.alignfull:first-child {
+	padding-top: calc(var(--site-header-h, 72px) + var(--wp--preset--spacing--50)) !important;
+}
+
+/* ---------------------------------------------------------------------
+ * Service tiles: heading only; open to reveal detail on peach
+ * ------------------------------------------------------------------- */
+.service-tile {
+	position: relative;
+	overflow: hidden;
+	margin-bottom: 0;
+	padding: var(--wp--preset--spacing--40);
+	border-radius: 5px;
+	transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.wp-block-column > .service-tile + .service-tile {
+	margin-top: var(--wp--preset--spacing--40);
+}
+
+/* Closed tiles are transparent with muted text */
+.service-tile:not([open]) {
+	background-color: transparent !important;
+	box-shadow: inset 0 0 0 1px rgba(112, 112, 112, 0.18);
+}
+
+.service-tile:not([open]) > summary {
+	color: var(--wp--preset--color--contrast-2);
+}
+
+.quick-actions .service-tile:not([open]) {
+	box-shadow: inset 0 0 0 1px rgba(252, 248, 240, 0.25);
+}
+
+.quick-actions .service-tile:not([open]) > summary {
+	color: #d9d9d9;
+}
+
+.service-tile:not([open]) > summary::after {
+	opacity: 0.85;
+}
+
+.service-tile:not([open]):hover > summary,
+.service-tile:not([open]) > summary:focus-visible {
+	color: var(--wp--preset--color--contrast);
+}
+
+.quick-actions .service-tile:not([open]):hover > summary,
+.quick-actions .service-tile:not([open]) > summary:focus-visible {
+	color: var(--wp--preset--color--base);
+}
+
+.service-tile > summary {
+	list-style: none;
+	cursor: pointer;
+	font-family: var(--wp--preset--font-family--heading);
+	font-weight: 600;
+	font-size: var(--wp--preset--font-size--large);
+	line-height: 1.1;
+	letter-spacing: -0.005em;
+	padding-right: 3.5rem;
+	padding-bottom: var(--wp--preset--spacing--40);
+}
+
+.service-tile > summary::-webkit-details-marker {
+	display: none;
+}
+
+.service-tile > summary::after {
+	content: "+";
+	position: absolute;
+	right: var(--wp--preset--spacing--30);
+	bottom: 0;
+	width: 3.25rem;
+	height: 1.7rem;
+	border-radius: 3.25rem 3.25rem 0 0;
+	background: var(--wp--preset--color--accent);
+	color: var(--wp--preset--color--contrast);
+	font: 500 1.5rem/2rem var(--wp--preset--font-family--body);
+	text-align: center;
+	transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.service-tile[open] {
+	background-color: var(--wp--preset--color--accent) !important;
+}
+
+.service-tile[open] > summary::after {
+	opacity: 0;
+	transform: translateY(100%);
+}
+
+.service-tile[open]::after {
+	content: "";
+	position: absolute;
+	right: 1rem;
+	bottom: -3.75rem;
+	width: 12rem;
+	height: 12.5rem;
+	pointer-events: none;
+	background:
+		radial-gradient(circle at 50% 100%, rgba(255, 227, 209, 0.55) 0 49%, transparent 50%) 0 0 / 100% 48% no-repeat,
+		radial-gradient(circle at 50% 100%, rgba(255, 227, 209, 0.55) 0 49%, transparent 50%) 0 100% / 100% 48% no-repeat;
+}
+
+.service-tile > p {
+	position: relative;
+	z-index: 1;
+	max-width: 32ch;
+	margin: 0;
+	padding-bottom: var(--wp--preset--spacing--50);
+	font-size: var(--wp--preset--font-size--small);
+}
+
+.service-tile > summary:focus-visible {
+	outline: 3px solid var(--wp--preset--color--contrast);
+	outline-offset: 2px;
+}
+
+/* Header social icons */
+.header-social {
+	margin: 0;
+}
+
+.site-header.is-on-dark .header-social .wp-social-link svg {
+	fill: var(--wp--preset--color--base);
+	color: var(--wp--preset--color--base);
+}
+
+/* Service tiles: form inside */
+.service-tile .jump-menu {
+	position: relative;
+	z-index: 1;
+	display: flex;
+	gap: 0.6rem;
+	padding-bottom: var(--wp--preset--spacing--40);
+	max-width: 30rem;
+}
+
+.service-tile > p {
+	padding-bottom: var(--wp--preset--spacing--40);
+}
+
+.service-tile[open] .jump-menu select {
+	border-color: var(--wp--preset--color--contrast);
+}
+
+.service-tile[open] .jump-menu__go {
+	background: var(--wp--preset--color--contrast);
+	color: var(--wp--preset--color--base);
+}
+
+.service-tile[open] .jump-menu__go:hover,
+.service-tile[open] .jump-menu__go:focus-visible {
+	background: var(--wp--preset--color--base);
+	color: var(--wp--preset--color--contrast);
+}
+
+.value-card__count {
+	display: none;
+}
+
+.quick-actions .service-tile[open],
+.quick-actions .service-tile[open] > summary,
+.quick-actions .service-tile[open] > p {
+	color: var(--wp--preset--color--contrast);
+}
+
+/* No gaps between full-width sections on a page */
+.wp-block-post-content > .alignfull,
+.wp-block-post-content > .alignfull + .alignfull,
+main > .alignfull + .alignfull {
+	margin-block-start: 0 !important;
+	margin-block-end: 0 !important;
+}
+
+/* Footer bottom: clustered funders and a centered, light disclaimer */
+.site-footer .funders {
+	justify-content: center;
+	gap: 1rem 2.25rem;
+	max-width: 56rem;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.site-footer .funders .funder img {
+	height: 44px;
+}
+
+.site-footer .funders__link,
+.site-footer .funders__link a {
+	font-weight: 300;
+}
+
+.site-footer .site-footer__disclaimer {
+	text-align: center;
+	font-weight: 300;
+	max-width: 44rem;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.site-footer,
+.site-footer p,
+.site-footer a,
+.site-footer .wp-block-navigation,
+.site-footer .wp-block-social-link-label {
+	font-weight: 300;
+}
+
+.site-footer .footer-site-name,
+.site-footer .footer-site-name a {
+	font-weight: 600;
+}
+
+.site-footer .funders {
+	gap: 1rem 1.5rem;
+	max-width: none;
+	justify-content: center;
+}
+
+.site-footer .funders .funder img {
+	height: 40px;
+}
+
+.site-footer .site-footer__disclaimer {
+	max-width: none;
+	width: 100%;
+	text-align: center;
+}
+
+.site-footer .site-footer__social .wp-block-social-link-label,
+.site-footer .site-footer__social .wp-social-link a {
+	color: #d9d9d9;
+	opacity: 1;
+}
+
+/* ---------------------------------------------------------------------
+ * Intro: large centered site name that shrinks into the header
+ * ------------------------------------------------------------------- */
+.has-intro .site-header .wp-block-site-title {
+	transform-origin: left center;
+	will-change: transform;
+	position: relative;
+	z-index: 2;
+}
+
+.has-intro .site-header.is-intro .wp-block-navigation,
+.has-intro .site-header.is-intro .header-social,
+.has-intro .site-header.is-intro .quick-exit {
+	opacity: calc(1 - var(--intro-p, 0));
+}
+
+.has-intro.has-js main > .wp-block-post-content > .hero.alignfull:first-child,
+.has-intro.has-js main > .hero.alignfull:first-child {
+	padding-top: calc(var(--site-header-h, 72px) + 100vh) !important;
+}
+
+.has-intro .hero > .alignwide {
+	min-height: 60vh !important;
+}
+
+.scroll-hint {
+	display: none;
+}
+
+.has-intro .scroll-hint {
+	display: block;
+	position: absolute;
+	left: 50%;
+	top: calc(100vh - 3rem);
+	transform: translateX(-50%);
+	margin: 0;
+	opacity: var(--intro-p, 0);
+}
+
+.has-intro .hero {
+	position: relative;
+}
+
+/* ---------------------------------------------------------------------
+ * Statement: scroll-linked words
+ * ------------------------------------------------------------------- */
+.has-js:not(.no-reveal) .statement .reveal-word {
+	display: inline-block;
+	color: var(--wp--preset--color--contrast-2);
+	opacity: 0.35;
+	transition: opacity 0.25s ease, color 0.25s ease;
+}
+
+.has-js:not(.no-reveal) .statement .reveal-word.is-on {
+	color: var(--wp--preset--color--contrast);
+	opacity: 1;
+}
+
+/* ---------------------------------------------------------------------
+ * Values: stacked cards that stop 20% from the top
+ * ------------------------------------------------------------------- */
+.values-stack {
+	padding-bottom: 20vh !important;
+}
+
+.value-card {
+	top: 20vh;
+	min-height: 55vh;
+	margin-bottom: 25vh;
+	justify-content: flex-start;
+	transition: opacity 0.15s linear;
+}
+
+.value-card:last-child {
+	margin-bottom: 0;
+}
+
+.value-card.is-passed {
+	opacity: 0 !important;
+	visibility: hidden;
+}
+
+@media (max-width: 781px) {
+	.value-card {
+		min-height: 0;
+		margin-bottom: 0;
+		opacity: 1 !important;
+		visibility: visible !important;
+	}
+}
+
+/* ---------------------------------------------------------------------
+ * Team spotlight: role label on the picture
+ * ------------------------------------------------------------------- */
+.team-spotlight__frame {
+	position: sticky;
+}
+
+.team-spotlight__frame > .wp-block-image {
+	margin: 0;
+}
+
+.team-spotlight__frame {
+	display: inline-block;
+	max-width: 420px;
+}
+
+.team-spotlight__role {
+	position: absolute;
+	left: 0.9rem;
+	bottom: 0.9rem;
+	margin: 0;
+	background: var(--wp--preset--color--accent) !important;
+	color: var(--wp--preset--color--contrast) !important;
+	border-radius: 999px;
+	padding: 0.25em 0.9em;
+	font-weight: 500;
+	z-index: 2;
+}
+
+/* First item in each dropdown is the section's own page */
+.wp-block-navigation .menu-overview {
+	font-weight: 600;
+	border-bottom: 1px solid rgba(112, 112, 112, 0.2);
+	padding-bottom: 0.35rem;
+	margin-bottom: 0.35rem;
+}
+
+.wp-block-navigation .menu-overview a::after {
+	content: " \2192";
+}
