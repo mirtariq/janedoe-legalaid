@@ -205,6 +205,16 @@ h1:where(.wp-block-heading).has-background,h2:where(.wp-block-heading).has-backg
 /* Pale pink tile decoration */
 .service-tile[open]::after{background:radial-gradient(circle at 50% 100%, rgba(255,236,253,.6) 0 49%, transparent 50%) 0 0 / 100% 48% no-repeat,radial-gradient(circle at 50% 100%, rgba(255,236,253,.6) 0 49%, transparent 50%) 0 100% / 100% 48% no-repeat;}
 
+
+/* Home palette consistency */
+.wp-block-details.form-item > summary strong{color:var(--wp--preset--color--contrast);}
+.step-icon svg *{fill:var(--wp--preset--color--contrast);}
+.step-icon .rj{stroke:var(--wp--preset--color--contrast);}
+.step-icon .cut{fill:var(--wp--preset--color--accent);}
+.step-icon .outl{stroke:var(--wp--preset--color--accent);}
+.step-icon .ln{fill:none;stroke:var(--wp--preset--color--accent);}
+html body .site-footer,html body .site-footer .site-footer__social .wp-block-social-link-label,html body .site-footer .site-footer__social .wp-social-link a,html body .site-footer__social .wp-social-link a{color:#e2d7e1;}
+
 :root :where(.wp-block-navigation){font-size: clamp(0.875rem, 0.875rem + ((1vw - 0.2rem) * 0.269), 1.063rem);font-weight: 400;letter-spacing: 0;}:root :where(.wp-block-navigation-is-layout-flow) > :first-child{margin-block-start: 0;}:root :where(.wp-block-navigation-is-layout-flow) > :last-child{margin-block-end: 0;}:root :where(.wp-block-navigation-is-layout-flow) > *{margin-block-start: 1.5rem;margin-block-end: 0;}:root :where(.wp-block-navigation-is-layout-constrained) > :first-child{margin-block-start: 0;}:root :where(.wp-block-navigation-is-layout-constrained) > :last-child{margin-block-end: 0;}:root :where(.wp-block-navigation-is-layout-constrained) > *{margin-block-start: 1.5rem;margin-block-end: 0;}:root :where(.wp-block-navigation-is-layout-flex){gap: 1.5rem;}:root :where(.wp-block-navigation-is-layout-grid){gap: 1.5rem;}
 :root :where(.wp-block-site-title){font-family: var(--wp--preset--font-family--heading);font-size: clamp(1.052rem, 1.052rem + ((1vw - 0.2rem) * 0.819), 1.625rem);font-weight: 600;letter-spacing: -0.02em;line-height: 1;}
 :root :where(.wp-block-site-title a:where(:not(.wp-element-button))){color: var(--wp--preset--color--contrast);text-decoration: none;}
